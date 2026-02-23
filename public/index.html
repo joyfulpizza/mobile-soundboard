@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mobile Soundboard</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -10,10 +11,27 @@
 <h1>🎵 Soundboard</h1>
 
 <div class="grid">
-    <button onclick="playSound('sound1.mp3')">Sound 1</button>
-    <button onclick="playSound('sound2.mp3')">Sound 2</button>
+    <!-- CHANGE FILENAMES TO MATCH YOUR MP3 FILES -->
+    <button onclick="playSound('sound_1.mp3')">Sound 1</button>
+    <button onclick="playSound('sound_2.mp3')">Sound 2</button>
 </div>
 
-<script src="script.js"></script>
+<script>
+let currentAudio = null;
+
+function playSound(file) {
+    // Stop previous sound
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+    }
+
+    currentAudio = new Audio("/sounds/" + file);
+    currentAudio.play().catch(err => {
+        console.log("Playback blocked:", err);
+    });
+}
+</script>
+
 </body>
 </html>
